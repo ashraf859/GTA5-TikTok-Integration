@@ -371,6 +371,19 @@ public class GTAVWebhookScript : Script
                     Logger.Log("Health set to " + Game.Player.Character.HealthFloat.ToString());
 
                     break;
+                } case "spawn_vehicle":
+                {
+                    VehicleHash vehicleHash;
+                    if (Enum.TryParse<VehicleHash>(command.custom, out vehicleHash))
+                    {
+                        spawnedVehicles.Add(World.CreateVehicle(new Model(vehicleHash), Game.Player.Character.Position + Game.Player.Character.ForwardVector * 5));
+                        Logger.Log("Vehicle spawned: " + command.custom);
+                    }
+                    else
+                    {
+                        Logger.Log("Cannot parse vehicle name: " + command.custom);
+                    }
+                    break;
                 }
             default:
                 {
